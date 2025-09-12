@@ -5,8 +5,11 @@ import com.codegym.jira.login.internal.web.UserTestData;
 import com.codegym.jira.bugtracking.sprint.to.SprintTo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -17,7 +20,9 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+@SpringBootTest
+@ActiveProfiles("test")
+@Sql(scripts = "/test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 class SprintControllerTest extends AbstractControllerTest {
     private static final String SPRINTS_REST_URL = REST_URL + "/sprints/";
     private static final String SPRINTS_BY_PROJECT_REST_URL = SPRINTS_REST_URL + "by-project";

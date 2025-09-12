@@ -1,9 +1,8 @@
-.idea
-out
-target
+.git
+.gitignore
 *.iml
+.idea
+target/*
+!target/*.jar
 logs
-attachments
-*.patch
-
-
+.DS_Store

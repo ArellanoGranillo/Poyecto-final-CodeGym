@@ -7,8 +7,11 @@ import com.codegym.jira.bugtracking.project.ProjectRepository;
 import com.codegym.jira.common.BaseHandler;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -16,7 +19,9 @@ import static com.codegym.jira.common.util.JsonUtil.writeValue;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+@SpringBootTest
+@ActiveProfiles("test")
+@Sql(scripts = "/test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class ProjectControllerTest extends AbstractControllerTest {
     private static final String REST_URL_PROJECT = BaseHandler.REST_URL + "/projects";
     private static final String REST_URL_MNGR_PROJECT = BaseHandler.REST_URL + "/mngr/projects";
@@ -63,6 +68,7 @@ public class ProjectControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = UserTestData.MANAGER_MAIL)
+    @Sql(scripts = "/test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void create() throws Exception {
         Project newProject = ProjectTestData.getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL_MNGR_PROJECT)

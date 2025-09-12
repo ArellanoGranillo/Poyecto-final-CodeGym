@@ -25,5 +25,46 @@
 
 - https://www.youtube.com/watch?v=aEW8ZH6wj2o
 
-List of completed tasks:
-...
+Project Updates
+Completed Tasks
+---Understand the project structure (onboarding)
+
+---Delete social network(s)
+
+Removed Facebook login integration.
+
+Commented out the following sections in login.html and register.html:
+
+<!--
+</a>
+<a class="btn btn-primary btn-lg me-2" href="/oauth2/authorization/facebook" style="padding-left: 17px; padding-right: 17px;" type="button">
+    <i class="fa-brands fa-facebook"></i>
+</a>
+-->
+
+---Put sensitive information into a separate property file
+
+Created secrets.properties to store sensitive information securely.
+
+---Rework the tests to use H2 in-memory database
+
+Modified application-test.properties and application-test.yaml.
+
+Created two profiles in DataSourceConfig to run the application with H2.
+
+Migrated the content of test-data.sql to H2.
+
+Disabled Liquibase completely for tests.
+
+Note: Tests currently fail when running with the H2 configuration.
+
+---Docker setup
+
+Wrote a Dockerfile for the main server.
+
+Created a docker-compose.yml file.
+
+Added a .dockerignore file.
+
+---Update README.md
+
